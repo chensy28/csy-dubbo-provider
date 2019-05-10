@@ -22,7 +22,9 @@
 
     <!-- 声明需要暴露的服务接口 -->
     <dubbo:service interface="com.csy.dubbo.provider.DemoService" ref="demoService" />
+    <dubbo:service interface="com.csy.dubbo.provider.DemoServiceV2" ref="demoServiceV2"/>
 
     <!-- 和本地bean一样实现服务 -->
     <bean id="demoService" class="com.csy.dubbo.provider.DemoServiceImpl" />
+    <bean id="demoServiceV2" class="com.csy.dubbo.provider.DemoServiceImplV2" />
 </beans>

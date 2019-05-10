@@ -6,6 +6,11 @@ package com.csy.dubbo.provider;
  */
 public class DemoServiceImpl implements DemoService {
     public String sayHello(String name) {
+        try {
+            Thread.sleep(6000L);
+        } catch (Exception e) {
+
+        }
         return "provider" + name;
     }
 }
