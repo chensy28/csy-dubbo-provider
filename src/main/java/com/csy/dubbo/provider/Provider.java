@@ -12,6 +12,6 @@ public class Provider {
                 {"classpath:provider.xml"});
         // src/main/resources/provider.xml  此路径找不到
         context.start();
-        System.in.read(); // 按任意键退出
+        System.in.read();  // 按任意键退出
     }
 }
