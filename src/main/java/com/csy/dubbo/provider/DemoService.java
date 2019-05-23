@@ -6,4 +6,5 @@ package com.csy.dubbo.provider;
  */
 public interface DemoService {
     String sayHello(String name);
+    String sayHaHa(String haha);
 }

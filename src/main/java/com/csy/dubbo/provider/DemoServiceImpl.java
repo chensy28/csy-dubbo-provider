@@ -13,4 +13,8 @@ public class DemoServiceImpl implements DemoService {
         }
         return "provider" + name;
     }
+
+    public String sayHaHa(String haha) {
+        return "provider " + haha;
+    }
 }
