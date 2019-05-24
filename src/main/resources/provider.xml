@@ -22,7 +22,19 @@
 
     <!-- 声明需要暴露的服务接口 -->
     <dubbo:service interface="com.csy.dubbo.provider.DemoService" ref="demoService" />
-    <dubbo:service interface="com.csy.dubbo.provider.DemoServiceV2" ref="demoServiceV2"/>
+
+    <!--
+        不同粒度配置的覆盖关系
+        (比较方式：将消费者和提供者的配置同时拿来比较，然后在同级别上比较)
+        1.方法级优先，接口级次之，全局配置再次之。
+        2.如果级别一样，则消费方优先，提供方次之。
+        若都没设置，则使用默认值
+        建议由服务提供方设置超时，因为一个方法需要执行多长时间，服务提供方更清楚，如果一个消费方同时引用多个服务，就不需要关心每个服务的超时设置
+     -->
+    <dubbo:provider timeout="1122"/>
+    <dubbo:service interface="com.csy.dubbo.provider.DemoServiceV2" ref="demoServiceV2" timeout="5420">
+        <dubbo:method name="sayHelloV2" timeout="5000" retries="5"/>
+    </dubbo:service>
 
     <!-- 和本地bean一样实现服务 -->
     <bean id="demoService" class="com.csy.dubbo.provider.DemoServiceImpl" />
