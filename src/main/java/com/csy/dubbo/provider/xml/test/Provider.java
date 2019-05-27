@@ -1,4 +1,4 @@
-package com.csy.dubbo.provider;
+package com.csy.dubbo.provider.xml.test;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
