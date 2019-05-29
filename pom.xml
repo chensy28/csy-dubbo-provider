@@ -27,4 +27,20 @@
         </dependency>
 
     </dependencies>
+
+    <!-- 配置source和target都为1.8（根据自己的需求设置）。正是因为pom中没有设置jdk版本，
+    所以每次修改pom后重新运行，都会恢复默认版本1.5。 -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
