@@ -26,20 +26,20 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         try {
             //do something
             //接收客户端发送的数据 ByteBuf
-            ByteBuf buf = (ByteBuf)msg;
+            ByteBuf buf = (ByteBuf) msg;
             //创建一个和buf长度一样的空字节数组
             byte[] data = new byte[buf.readableBytes()];
             //将buf中的数据读取到data数组中
             buf.readBytes(data);
             //将data数据包装成string输出
-            String request = new String(data,"utf-8");
-            System.out.println("server :"+request);
+            String request = new String(data,  "utf-8");
+            System.out.println("server :" + request);
 
             //以上代码是接收客户端信息//
 
             //server端向client发送反馈数据
             //如果是绑定了多个端口 那么都会进行发送
-            ctx.writeAndFlush(Unpooled.copiedBuffer("888 from server".getBytes()))
+            ctx.writeAndFlush(Unpooled.copiedBuffer(("888 from server" + ", for " + request).getBytes()))
                     .addListener(ChannelFutureListener.CLOSE); //添加监听 当服务端向客户端发送完数据后，关闭connect连接
 
             /**

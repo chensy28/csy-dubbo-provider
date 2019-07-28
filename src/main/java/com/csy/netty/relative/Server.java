@@ -28,14 +28,13 @@ public class Server {
             //2:第二个线程组是用于实际的业务处理操作的
             workerGroup = new NioEventLoopGroup();
             //3:创建一个启动NIO服务的辅助启动类ServerBootstrap 就是对我们的Server进行一系列的配置
-            b = new ServerBootstrap();//(2)
+            b = new ServerBootstrap(); //(2)
             //4:绑定两个线程组
             b.group(bossGroup, workerGroup)
                     //5:需要指定使用NioServerSocketChannel这种类型的通道
                     .channel(NioServerSocketChannel.class)//(3) 服务端 -->NioServerSocketChannel
                     //6:一定要使用childHandler 去绑定具体的事件处理器
-                    .childHandler(new ChannelInitializer<SocketChannel>() //(4)   childHandler
-                    {
+                    .childHandler(new ChannelInitializer<SocketChannel>() { //(4)   childHandler
                         @Override
                         protected void initChannel(SocketChannel sc) throws Exception {
                             //7:将自定义的serverHandler加入到管道中去（多个）
@@ -63,15 +62,15 @@ public class Server {
                     .childOption(ChannelOption.SO_KEEPALIVE, true);//(6)
             //10:绑定指定的端口 进行监听
             //此处端口号先写死  也可以绑定多个端口
-            ChannelFuture cf2= b.bind(PORT1).sync(); // (7)
+            ChannelFuture cf2 = b.bind(PORT1).sync(); // (7)
 
-            ChannelFuture cf3= b.bind(PORT2).sync(); // (7)   绑定多个端口
+            ChannelFuture cf3 = b.bind(PORT2).sync(); // (7)   绑定多个端口
 
             //Thread.sleep(10000);
             cf2.channel().closeFuture().sync(); //异步等待关闭
             cf3.channel().closeFuture().sync(); //异步等待关闭
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             workerGroup.shutdownGracefully();
