@@ -12,19 +12,17 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  * Netty实现的服务端程序
  * 事件驱动
  */
-public class Server
-{
+public class Server {
     /*端口号*/
     static final int PORT1 = Integer.parseInt(System.getProperty("port", "8765"));
 
     static final int PORT2 = Integer.parseInt(System.getProperty("port", "8764"));
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         EventLoopGroup bossGroup = null;
         EventLoopGroup workerGroup = null;
         ServerBootstrap b = null;
-        try{
+        try {
             //1:第一个线程组是用于接收Client连接的
             bossGroup = new NioEventLoopGroup(); //(1)
             //2:第二个线程组是用于实际的业务处理操作的
@@ -39,10 +37,9 @@ public class Server
                     .childHandler(new ChannelInitializer<SocketChannel>() //(4)   childHandler
                     {
                         @Override
-                        protected void initChannel(SocketChannel sc) throws Exception
-                        {
+                        protected void initChannel(SocketChannel sc) throws Exception {
                             //7:将自定义的serverHandler加入到管道中去（多个）
-                            sc.pipeline().addLast(new ServerHandler());//handler中实现真正的业务逻辑
+                            sc.pipeline().addLast(new ServerHandler()); //handler中实现真正的业务逻辑
 //                    sc.pipeline().addLast(new ServerHandler());
 //                    sc.pipeline().addLast(new ServerHandler());
                         }
@@ -74,9 +71,9 @@ public class Server
             cf2.channel().closeFuture().sync(); //异步等待关闭
             cf3.channel().closeFuture().sync(); //异步等待关闭
 
-        }catch(Exception e){
+        } catch(Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
         }

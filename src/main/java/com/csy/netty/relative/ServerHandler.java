@@ -15,18 +15,15 @@ import io.netty.util.ReferenceCountUtil;
  * 服务端业务处理类
  * (编写主要的业务逻辑)
  */
-public class ServerHandler extends ChannelInboundHandlerAdapter
-{
-
+public class ServerHandler extends ChannelInboundHandlerAdapter {
     /**
      * 每当从客户端收到新的数据时，这个方法会在收到消息时被调用
      * ByteBuf是一个引用计数对象，这个对象必须显示地调用release()方法来释放。
      * 请记住处理器的职责是释放所有传递到处理器的引用计数对象。
      */
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception
-    {
-        try{
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        try {
             //do something
             //接收客户端发送的数据 ByteBuf
             ByteBuf buf = (ByteBuf)msg;
@@ -42,17 +39,17 @@ public class ServerHandler extends ChannelInboundHandlerAdapter
 
             //server端向client发送反馈数据
             //如果是绑定了多个端口 那么都会进行发送
-            ctx.writeAndFlush(Unpooled.copiedBuffer("888".getBytes()))
-                    .addListener(ChannelFutureListener.CLOSE);//添加监听 当服务端向客户端发送完数据后，关闭connect连接
+            ctx.writeAndFlush(Unpooled.copiedBuffer("888 from server".getBytes()))
+                    .addListener(ChannelFutureListener.CLOSE); //添加监听 当服务端向客户端发送完数据后，关闭connect连接
+
             /**
              * ChannelFutureListener,当一个写请求完成时通知并且关闭Channel
              * 加上监听 意味着服务端回送数据到客户端时 连接关闭(短连接)
              * 不加监听 意味着客户端与服务端一直保持连接状态(长连接)
              */
 
-
             ctx.close();
-        }finally{
+        } finally {
             // Discard the received data silently.
             ReferenceCountUtil.release(msg);
         }
@@ -63,8 +60,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter
      * 即当Netty由于IO错误或者处理器在处理事件时抛出的异常时
      */
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception
-    {
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         // Close the connection when an exception is raised.
         cause.printStackTrace();
         ctx.close();
