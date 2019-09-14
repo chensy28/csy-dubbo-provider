@@ -33,6 +33,8 @@ public class ApiTest {
         serviceConfig.setRef(apiDemo);
         serviceConfig.setVersion("1.0.0");
 
+        serviceConfig.setFilter("contentFilter");
+
         serviceConfig.export();
         System.in.read();
 

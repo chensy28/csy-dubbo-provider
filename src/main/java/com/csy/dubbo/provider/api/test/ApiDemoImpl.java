@@ -6,6 +6,7 @@ package com.csy.dubbo.provider.api.test;
  */
 public class ApiDemoImpl implements ApiDemo {
     public String sayHello(String str) {
-        return "provider" + str;
+        System.out.println("来自消费者信息：" + str);
+        return "provider：" + str;
     }
 }
