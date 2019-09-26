@@ -26,7 +26,9 @@
     <!-- 注册地址里需要指定协议如 zookeeper，否则默认dubbo，就会出现无法注册的问题-->
     <dubbo:registry address="zookeeper://127.0.0.1:2181" check="true"/>
 
+<!-- TODO 自定义filter在XML没效
     <dubbo:provider filter="contentFilter" />
+-->
 
     <!-- 用dubbo协议在20880端口暴露服务 -->
     <dubbo:protocol name="dubbo" port="20880" />

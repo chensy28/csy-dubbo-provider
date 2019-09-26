@@ -16,7 +16,8 @@ public class Server {
     /*端口号*/
     static final int PORT1 = Integer.parseInt(System.getProperty("port", "8765"));
 
-    static final int PORT2 = Integer.parseInt(System.getProperty("port", "8764"));
+    //可打开多个接口
+    //static final int PORT2 = Integer.parseInt(System.getProperty("port", "8764"));
 
     public static void main(String[] args) {
         EventLoopGroup bossGroup = null;
@@ -64,11 +65,11 @@ public class Server {
             //此处端口号先写死  也可以绑定多个端口
             ChannelFuture cf2 = b.bind(PORT1).sync(); // (7)
 
-            ChannelFuture cf3 = b.bind(PORT2).sync(); // (7)   绑定多个端口
+            //ChannelFuture cf3 = b.bind(PORT2).sync(); // (7)   绑定多个端口
 
             //Thread.sleep(10000);
             cf2.channel().closeFuture().sync(); //异步等待关闭
-            cf3.channel().closeFuture().sync(); //异步等待关闭
+            //cf3.channel().closeFuture().sync(); //异步等待关闭
 
         } catch (Exception e) {
             e.printStackTrace();

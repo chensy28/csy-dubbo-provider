@@ -9,8 +9,8 @@ import com.alibaba.dubbo.rpc.*;
  * @author chensy
  * @date 2019-09-14 11:29
  */
-@Activate(group = Constants.PROVIDER)
-public class ContentFilter implements Filter { //TODO 过滤器已经被夹在，为啥不生效
+@Activate(group = Constants.PROVIDER) //@Activate 会自动激活，加了此注解，不需要再XML中配置
+public class ContentFilter implements Filter {
     @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
         Result result = invoker.invoke(invocation);
